@@ -3,6 +3,7 @@ package lk.ijse.poswebbackend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import lk.ijse.poswebbackend.entity.Category;
 import lk.ijse.poswebbackend.service.CategoryService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class CategoryController {
 
     @Autowired
