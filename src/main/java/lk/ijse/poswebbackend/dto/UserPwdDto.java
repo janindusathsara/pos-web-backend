@@ -6,5 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserPwdDto {
-    private String password;
+    private Long id;
+    private String oldPassword;
+    private String newPassword;
 }

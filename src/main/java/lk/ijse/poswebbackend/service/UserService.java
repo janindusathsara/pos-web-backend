@@ -13,6 +13,6 @@ public interface UserService {
     User createUser(User user);
     List<User> getAllUsers();
     User getUser(Long id);
-    User changePassword(Long id, UserPwdDto userPwdDto);
-    
+    User changePassword(UserPwdDto userPwdDto);
+    User findUserByJwt(String jwt);
 }

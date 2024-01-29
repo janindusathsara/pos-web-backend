@@ -10,13 +10,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -27,9 +28,14 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping("/users/{id}/change-password")
-    public ResponseEntity<User> changePassword(@PathVariable Long id, @RequestBody UserPwdDto userPwdDto) {
-        return ResponseEntity.ok().body(userService.changePassword(id,userPwdDto));
+    @PutMapping("/users/change-password")
+    public ResponseEntity<User> changePassword(@RequestBody UserPwdDto userPwdDto) {
+        return ResponseEntity.ok().body(userService.changePassword(userPwdDto));
+    }
+    
+    @GetMapping("/getuser")
+    public ResponseEntity<User> getUserFromToken(@RequestHeader("Authorization") String jwt) {
+        return ResponseEntity.ok().body(userService.findUserByJwt(jwt));
     }
     
 }
