@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import lk.ijse.poswebbackend.dto.ProductDeleteDto;
 import lk.ijse.poswebbackend.dto.ProductDto;
 import lk.ijse.poswebbackend.entity.Product;
 import lk.ijse.poswebbackend.service.ProductService;
@@ -29,10 +30,10 @@ public class ProductController {
         return ResponseEntity.status(200).body(productService.getAllProducts());
     }
 
-    @PostMapping("/products")
-    public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto) {
+    @PostMapping("/products/{id}")
+    public ResponseEntity<?> createProduct(@PathVariable Long id, @RequestBody ProductDto productDto) {
         try {
-            return ResponseEntity.status(201).body(productService.createProduct(productDto));
+            return ResponseEntity.status(201).body(productService.createProduct(productDto, id));
         } catch (Exception e) {
             return ResponseEntity.status(400).body("Failed to create the Product");
         }
@@ -63,6 +64,16 @@ public class ProductController {
     @GetMapping("/categories/{id}/products")
     public ResponseEntity<List<Product>> getProductByCategory(@PathVariable Long id) {
         return ResponseEntity.ok().body(productService.getProductByCategory(id));
+    }
+    
+    @GetMapping("/users/products/{id}")
+    public ResponseEntity<List<Product>> getProductByUser(@PathVariable Long id) {
+        return ResponseEntity.ok().body(productService.getProductByUser(id));
+    }
+
+    @PutMapping("/products/delete/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id, @RequestBody ProductDeleteDto deleteDto) {
+        return ResponseEntity.ok().body(productService.deleteProduct(deleteDto, id));
     }
     
 }

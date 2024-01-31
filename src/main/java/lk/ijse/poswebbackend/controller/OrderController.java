@@ -45,10 +45,15 @@ public class OrderController {
 
     }
 
-    @PostMapping("/orders")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDto orderDto) {
-
-        return ResponseEntity.status(201).body(orderService.creatOrder(orderDto));
+    @PostMapping("/orders/{id}")
+    public ResponseEntity<Order> createOrder(@PathVariable Long id, @RequestBody OrderDto orderDto) {
+        return ResponseEntity.status(201).body(orderService.creatOrder(orderDto, id));
     }
+
+    @GetMapping("/orders/user/{id}")
+    public ResponseEntity<List<Order>> getOrderByUser(@PathVariable Long id) {
+        return ResponseEntity.ok().body(orderService.getOrderByUser(id));
+    }
+    
     
 }

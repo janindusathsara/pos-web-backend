@@ -28,13 +28,24 @@ public class Product {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String description;
+
     private Double price;
 
     private Integer qty;
 
+    private Integer soldedQty;
+
+    private Boolean status;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "products")
